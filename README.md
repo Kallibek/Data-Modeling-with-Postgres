@@ -13,9 +13,7 @@ Second step: ETL pipeline
 
 1. This part starts from a connection to created database.
 
-2. Then rows of specific columns ("song_id","title","artist_id","year","duration") of each of the song data in "data/song_data" directory was read, and inserted into a "songs" collection of a database.
-
-The same procedure was repeated for artists collections for columns:"artist_id","artist_name","artist_location","artist_latitude","artist_longitude"
+2. Then rows of specific columns ("song_id","title","artist_id","year","duration") of each of the song data in "data/song_data" directory was read, and inserted into a "songs" collection of a database. The same procedure was repeated for artists collections for columns:"artist_id","artist_name","artist_location","artist_latitude","artist_longitude"
 
 3. inserting into the 'time' collection:
 the "ts" (in milliseconds) column of each log file in "data/log_data" directory was used to extract  "hour","day","week_of_year","month","year","weekday" of song playings. Then these time variables were inserted to the "time" collection.
