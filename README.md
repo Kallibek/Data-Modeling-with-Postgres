@@ -22,3 +22,9 @@ The columns `userId`, `firstName`, `lastName`, `gender`, `level`, were extracted
 
 1.  inserting into the `songplays` table:
 The `song_id` and `artist_id` of streamed songs were identified by joing `songs` and `artists` tables on `artist_id`, and from this joined table, `song_id` and `artist_id` was found using matching `song_name`, `artist_name` and `duration` columns. The `songplay_id`, `start_time`, `user_id`, `level`, `song_id`, `artist_id`,`session_id`,`location` columns of each log file were inserted into the `songplays` table.
+
+## Project instructions on how to run the Python scripts
+
+1. `create_tables.py` should be executed first, since it deletes and recreates the tables;
+1. Then `etl.py` script reads data from log files and metadata, to insert extracted data into created tables.
+
