@@ -4,7 +4,7 @@ by Kallibek Kazbekov
 ---
 # Project summary
 ## Purpose
-The Sparkify startup wants to analyze which popularity of songs (based on user activity) streamed via thier new app. For this purpose they have two datasets, 1) logs of user activity and 2) metadata of songs. Both datasets are in JSON format. They want their data engineer to create a database and ETL pipeline using Python and PostgreSQL for analysis.  
+The Sparkify startup wants to analyze popularity of songs (based on user activity), streamed via thier new app. For this purpose they have two datasets, 1) logs of user activity and 2) metadata of songs. Both datasets are in JSON format. They want their data engineer to create a database and ETL pipeline using Python and PostgreSQL for analysis.  
 ## Database Schema
 The developed database consists of four dimension tables and a fact table:
 
