@@ -30,7 +30,43 @@ The `song_id` and `artist_id` of streamed songs were identified by joing `songs`
 
 # An explanation of the files in the repository
 * `create_tables.py` - includes functions to 1) delete & creat the sparkify database, 2) connect to the database, 3) remove all tables, 3) create new tables, and 4) close the connection;
+````
+def main():
+    """
+    - Drops (if exists) and Creates the sparkify database. 
+    
+    - Establishes connection with the sparkify database and gets
+    cursor to it.  
+    
+    - Drops all the tables.  
+    
+    - Creates all tables needed. 
+    
+    - Finally, closes the connection. 
+    """
+def create_database():
+    """
+    - Creates and connects to the sparkifydb
+    - Returns the connection and cursor to sparkifydb
+    """
+def drop_tables(cur, conn):
+    """
+    Drops each table using the queries in `drop_table_queries` list.
+    """
+def create_tables(cur, conn):
+    """
+    Creates each table using the queries in `create_table_queries` list. 
+    """
+
+```
 * `etl.py` - has functions to read log files and metadata and insert the extracted data into the tables;
+```
+
+```
 * `sql_queries.py` - contains SQL queries to drop and create tables, as well as to find specific song data;
 * `test.ipynb` - is used to validate the ETL pipeline. 5 rows of the resulting tables can be viewed;
 * `supplementary` directory - directory for any supplementary data used in `README.md`.
+
+# docstrings
+
+###
