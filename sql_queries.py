@@ -13,9 +13,9 @@ CREATE TABLE IF NOT EXISTS songplays(
                         songplay_id SERIAL,
                         start_time TIMESTAMP NOT NULL,
                         user_id text NOT NULL, 
-                        level text NOT NULL, 
-                        song_id text NOT NULL,
-                        artist_id text NOT NULL,
+                        level text, 
+                        song_id text,
+                        artist_id text,
                         session_id text, 
                         location text, 
                         user_agent text,
@@ -61,14 +61,13 @@ CREATE TABLE IF NOT EXISTS time(
                     month int,
                     year int,
                     weekday int,
-                    PRIMARY (start_time));
+                    PRIMARY KEY (start_time));
 """)
 
 # INSERT RECORDS
 # row.timestamp, row.userId,row.level,songid, artistid,row.sessionId,row.location,row.userAgent
 songplay_table_insert = ("""\
-INSERT INTO songplays (songplay_id ,\
-                        start_time,\
+INSERT INTO songplays (start_time,\
                         user_id,\
                         level,\
                         song_id,\
@@ -76,7 +75,8 @@ INSERT INTO songplays (songplay_id ,\
                         session_id, \
                         location, \
                         user_agent)\
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s)\
+ON CONFLICT DO NOTHING;
 
 """)
 
@@ -116,18 +116,19 @@ INSERT INTO time (start_time,\
                     month,\
                     year,\
                     weekday)\
-VALUES (%s, %s, %s, %s, %s, %s, %s);\
+VALUES (%s, %s, %s, %s, %s, %s, %s)\
+ON CONFLICT DO NOTHING;
 """)
 
 # FIND SONGS
 
 song_select = ("""\
-SELECT songs.song_id,songs.artist_id \
+SELECT songs.song_id,artists.artist_id \
 FROM songs \
 JOIN artists ON songs.artist_id=artists.artist_id \
 WHERE songs.title=%s \
 AND artists.name= %s \
-AND songs.duration= %s;
+AND songs.duration= %s;\
 """)
 
 # QUERY LISTS
