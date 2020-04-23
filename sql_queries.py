@@ -9,52 +9,59 @@ time_table_drop = "DROP TABLE IF EXISTS  time;"
 # CREATE TABLES
 
 songplay_table_create = ("""
-CREATE TABLE songplays(
-                        songplay_id text NOT NULL UNIQUE,
-                        start_time TIMESTAMP,
-                        user_id text, 
-                        level text, 
-                        song_id text,
-                        artist_id text,
+CREATE TABLE IF NOT EXISTS songplays(
+                        songplay_id SERIAL,
+                        start_time TIMESTAMP NOT NULL,
+                        user_id text NOT NULL, 
+                        level text NOT NULL, 
+                        song_id text NOT NULL,
+                        artist_id text NOT NULL,
                         session_id text, 
                         location text, 
-                        user_agent text); 
+                        user_agent text,
+                        PRIMARY KEY (songplay_id)); 
 """)
 
 user_table_create = ("""
-CREATE TABLE users (user_id text NOT NULL UNIQUE,
+CREATE TABLE IF NOT EXISTS users (
+                    user_id text,
                     first_name text, 
                     last_name text,
                     gender text, 
-                    level text) ;
+                    level text NOT NULL,
+                    PRIMARY KEY (user_id));
 """)
 
 song_table_create = ("""
-CREATE TABLE songs(song_id text NOT NULL UNIQUE,
+CREATE TABLE IF NOT EXISTS songs(
+                    song_id text,
                     title text, 
-                    artist_id text,
+                    artist_id text NOT NULL,
                     year int, 
-                    duration float);
+                    duration float NOT NULL,
+                    PRIMARY KEY (song_id));
 """)
 
 artist_table_create = ("""
-CREATE TABLE artists(
-                        artist_id text NOT NULL UNIQUE, 
+CREATE TABLE IF NOT EXISTS artists(
+                        artist_id text, 
                         name text,
                         location text,
                         latitude float,
-                        longitude float);
+                        longitude float,
+                        PRIMARY KEY (artist_id));
 """)
 
 time_table_create = ("""
-CREATE TABLE time(
+CREATE TABLE IF NOT EXISTS time(
                     start_time TIMESTAMP,
                     hour int,
                     day int,
                     week int,
                     month int,
                     year int,
-                    weekday int);
+                    weekday int,
+                    PRIMARY (start_time));
 """)
 
 # INSERT RECORDS
@@ -80,7 +87,8 @@ INSERT  INTO users (user_id,\
                     gender, \
                     level)\
 VALUES (%s, %s, %s, %s, %s)\
-ON CONFLICT DO NOTHING;\
+ON CONFLICT (user_id) DO UPDATE \
+SET level=EXCLUDED.level, gender=EXCLUDED.gender;\
 """)
 
 song_table_insert = ("""\
