@@ -1,25 +1,24 @@
-# Project name: Data Modeling with Postgres
-# Author: Kallibek Kazbekov
-# Date: 4/20/2020
+# Data Modeling with Postgres
+by Kallibek Kazbekov
 
 
-First step: create_tables.py
+# Project summary
+## Purpose
+The Sparkify startup wants to analyze which popularity of songs (based on user activity) streamed via thier new app. For this purpose they have two datasets, 1) logs of user activity and 2) metadata of songs. Both datasets are in JSON format. They want their data engineer to create a database and ETL pipeline using Python and PostgreSQL for analysis.  
+## Database Schema
+The developed database consists of four dimension tables and a fact table:
 
-This file has SQL commnands to create tables, insert rows and search.
-the search statement  first joind songs and artists tables on artist id and 
-finds a song_id and artist_id by song_name, artist_name, and duration of a songs
+<img src="https://github.com/Kallibek/Udacity_Project_Data_Modeling_with_Postgres/blob/master/database_schema.png" alt="alt text" width=800>
 
-Second step: ETL pipeline
+## ETL pipeline
 
-1. This part starts from a connection to created database.
+1. Rows of `song_id`,`title`,`artist_id`,`year`,`duration` columns of each of the song data in `data/song_data` directory was read, and inserted into a `songs` table. The same procedure was repeated for `artists` table for columns `artist_id`,`artist_name`,`artist_location`,`artist_latitude`,`artist_longitude`.
 
-2. Then rows of specific columns ("song_id","title","artist_id","year","duration") of each of the song data in "data/song_data" directory was read, and inserted into a "songs" collection of a database. The same procedure was repeated for artists collections for columns:"artist_id","artist_name","artist_location","artist_latitude","artist_longitude"
+1. inserting into the `time` table:
+the "ts" (in milliseconds) column of each log file in `data/log_data` directory was used to extract  `hour`,`day`,`week_of_year`,`month`,`year`,`weekday` of song playings. Then these time variables were inserted to the `time` table.
 
-3. inserting into the 'time' collection:
-the "ts" (in milliseconds) column of each log file in "data/log_data" directory was used to extract  "hour","day","week_of_year","month","year","weekday" of song playings. Then these time variables were inserted to the "time" collection.
+1. inserting into the `users` table:
+The columns `userId`, `firstName`, `lastName`, `gender`, `level`, were extracted for the log files of the `data/log_data` directory and inserted into the `users` table.
 
-4. inserting into the 'users' collection:
-The following columns, "userId", "firstName", "lastName", "gender", "level", were extracted for the log files of the "data/log_data" directory and inserted into the 'users' collection.
-
-5.  inserting into the 'songplays' collection:
-the song_id and artist_id was song_playing was identified byjoing songs and artists collections by artist_id, and from this joined table, song_id and artist_id was found using matching song_name, artist_name and duration of songs. The "songplay_id", "start_time", "user_id", "level", "song_id", "artist_id","session_id","location" columns of each log file were inserted into the songplay collection
+1.  inserting into the `songplays` table:
+The `song_id` and `artist_id` of streamed songs were identified by joing `songs` and `artists` tables on `artist_id`, and from this joined table, `song_id` and `artist_id` was found using matching `song_name`, `artist_name` and `duration` columns. The `songplay_id`, `start_time`, `user_id`, `level`, `song_id`, `artist_id`,`session_id`,`location` columns of each log file were inserted into the `songplays` table.
