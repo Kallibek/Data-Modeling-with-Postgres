@@ -8,7 +8,7 @@ The Sparkify startup wants to analyze popularity of songs (based on user activit
 ## Database Schema
 The developed database consists of four dimension tables and a fact table:
 
-<img src="https://github.com/Kallibek/Udacity_Project_Data_Modeling_with_Postgres/blob/master/supplementary/database_schema.png" alt="alt text" width=800>
+<img src="https://github.com/Kallibek/Data-Modeling-with-Postgres/blob/master/supplementary/database_schema.png" alt="alt text" width=800>
 
 ## ETL pipeline
 
